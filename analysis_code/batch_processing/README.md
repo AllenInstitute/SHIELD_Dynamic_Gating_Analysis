@@ -1,5 +1,5 @@
 # Batch analysis of Dynamic Gating Sessions
-This code was used to generate intermediate data structures from the primary NWBs to facilitate for further analysis. 
+This code was used to generate intermediate data structures from the primary NWBs to facilitate further analysis. 
 
 
 # Environment Setup

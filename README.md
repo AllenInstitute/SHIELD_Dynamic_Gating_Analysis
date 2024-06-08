@@ -5,6 +5,7 @@ Code to analyze dynamic gating nwbs with data collected using the SHIELD implant
 The recommended environment to use the data is `python>=3.9`. There is one main dependency that must be installed as follows: 
 
 Fork of AllenSDK to handle Dynamic Gating sessions:
+
 `pip install git+https://github.com/arjunsridhar12345/AllenSDK`.
 
 # Using the data

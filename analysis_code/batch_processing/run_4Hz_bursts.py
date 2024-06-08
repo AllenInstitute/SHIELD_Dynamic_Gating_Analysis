@@ -1,22 +1,17 @@
 import matplotlib.pyplot as plt
 import numpy as np
 import pandas as pd
-from datetime import datetime
 import os
 import argparse
 from vbn_utils import *
 from allensdk.brain_observatory.ecephys.dynamic_gating_ecephys_session import DynamicGatingEcephysSession
-from data_io import load_session
-from lfp_filters import butter_bandpass_filter
-import scipy.signal
 
 from ccf_utils import *
 import analysis_utils
-import data_io
 import plot_utils
 
 save_dir = "/allen/programs/mindscope/workgroups/dynamicrouting/dynamic_gating/derived_table_info/4Hz_bursts/all_areas_using_minima_125window"
-structure_tree = pd.read_csv('/allen/programs/mindscope/workgroups/np-behavior/ccf_structure_tree_2017.csv')
+structure_tree = pd.read_csv('../ccf_structure_tree_2017.csv')
 
 
 def find_4Hz_bursts(session, save_location=save_dir):
@@ -38,24 +33,14 @@ def find_4Hz_bursts(session, save_location=save_dir):
 
     cortex_counts = units[units['brain_division']=='Isocortex']['structure_acronym'].value_counts()
     cortical_areas = cortex_counts[cortex_counts>20]
-    
-    # area_of_interest = 'SSp'
-    # if area_of_interest in cortical_areas.index.values:
 
-    # spontaneous_start = stimulus_presentations[(stimulus_presentations['stimulus_name']=='spontaneous')&(stimulus_presentations['duration']>35)]
-    # start_time = spontaneous_start['start_time'].values[0]
-    # duration = spontaneous_start['duration'].values[0]
-
-    start_time = 0#stimulus_presentations.iloc[0]['start_time']
+    start_time = 0
     duration = stimulus_presentations.iloc[-1]['end_time']
 
     area_4Hz_bursts = {a:[] for a in cortical_areas.index.values}
     
-    #area_4Hz_bursts = {}
-    #for cortical_area in [area_of_interest]:#cortical_areas.index.values:
     for cortical_area in cortical_areas.index.values:
-        # if 'SSp' in cortical_area:
-        #     continue
+
         bursts, _ = analysis_utils.find_4Hz_bursts_for_area_just_spike_minima(cortical_area, units, session, 
                                                         start_time, duration)
         area_4Hz_bursts[cortical_area] = bursts
@@ -87,11 +72,9 @@ def find_4Hz_bursts(session, save_location=save_dir):
 if __name__ == "__main__":
     # define args
     parser = argparse.ArgumentParser()
-    #parser.add_argument('--session_id', type=int)
     parser.add_argument('--session_path', type=str)
     args = parser.parse_args()
     
-    #session = load_session(args.session_path)
     session = DynamicGatingEcephysSession.from_nwb_path(args.session_path)
 
     # call the plotting function
