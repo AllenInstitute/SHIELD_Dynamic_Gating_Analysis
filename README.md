@@ -5,7 +5,7 @@ mouse brain, Neuron (2024), https://doi.org/10.1016/j.neuron.2024.06.015.
 This code is published on zenodo: [![DOI](https://zenodo.org/badge/811016180.svg)](https://zenodo.org/doi/10.5281/zenodo.11494005)
 
 # Environment Setup
-The recommended environment is `python>=3.9`. There is one main dependency that must be installed as follows: 
+The recommended environment is `python=3.9`. There is one main dependency that must be installed as follows: 
 
 Fork of AllenSDK to handle Dynamic Gating sessions:
 
